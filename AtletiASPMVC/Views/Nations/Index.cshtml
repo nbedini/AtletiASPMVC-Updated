@@ -1,0 +1,47 @@
+﻿@model AtletiASPMVC.ViewModels.NationsListViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@Html.ActionLink("Nuova nazione", "Create")
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Code</td>
+            <td>Name</td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var n in Model.nations)
+        {
+            <tr>
+                <td>@n.Id</td>
+                <td>@n.Code</td>
+                <td>@n.Name</td>
+                <td>
+                    @Html.ActionLink("Dettaglio", "Details", new { id = n.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = n.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Partial("EmptyList",Model.nations)
+
+<ul class="pagination">
+    @for (int i = 1; i <= Model.pages; i++)
+    {
+        <li class=" @(i==Model.page ? "active" : "") ">
+            @Html.ActionLink(i.ToString(), "Index", new { id = i })
+        </li>
+    }
+</ul>
+
+
